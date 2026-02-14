@@ -1,19 +1,20 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 
 const noTexts = [
     "NO 💔",
     "Are you sure? 🥺",
-    "Pookie please... 😭",
+    "Dammy please... 😭",
     "Don't do this to me! 💔",
     "Esther, think about it! 🙏",
     "Error: No not found 🚫",
     "Try clicking Yes? 😉",
     "You're breaking my heart! ❤️‍🩹",
     "I'll be very sad... 😔",
+    "You're making me cry... 😭",
 ];
 
 export default function Proposal() {
@@ -28,7 +29,7 @@ export default function Proposal() {
             particleCount: 200,
             spread: 90,
             origin: { y: 0.6 },
-            colors: ['#ff0000', '#ff69b4', '#ffffff', '#ff1493']
+            colors: ['#ff2d55', '#ffb3c1', '#ffffff', '#e2b13c']
         });
     };
 
@@ -38,14 +39,11 @@ export default function Proposal() {
         setNoClickCount(prev => prev + 1);
 
         const container = containerRef.current.getBoundingClientRect();
-        const padding = 20;
-        const btnWidth = 150;
-        const btnHeight = 60;
+        const padding = 30;
+        const btnWidth = 120;
+        const btnHeight = 50;
 
-        // Ensure the button stays within bounds but moves far enough
-        const maxX = (container.width / 2) - btnWidth - padding;
-        const maxY = (container.height / 2) - btnHeight - padding;
-
+        // Ensure the button stays within the visible card bounds
         const rangeX = container.width - btnWidth - (padding * 2);
         const rangeY = container.height - btnHeight - (padding * 2);
 
@@ -56,30 +54,31 @@ export default function Proposal() {
     };
 
     return (
-        <div className="w-full max-w-2xl mx-auto px-4 py-20 min-h-[70vh] flex flex-col items-center justify-center text-center relative overflow-visible" ref={containerRef}>
+        <div className="w-full max-w-2xl mx-auto px-4 py-16 min-h-[600px] flex flex-col items-center justify-center text-center relative" ref={containerRef}>
             <AnimatePresence mode="wait">
                 {!accepted ? (
                     <motion.div
                         key="proposal"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.5 }}
-                        className="glass-card p-8 md:p-12 rounded-[3rem] w-full bg-white/60 backdrop-blur-xl border border-white/40 shadow-[0_20px_50px_rgba(255,182,193,0.3)]"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        className="glass-card p-10 md:p-16 w-full border-2 border-primary/30 shadow-[0_0_50px_rgba(255,45,85,0.15)]"
                     >
-                        <h2 className="text-4xl md:text-6xl font-bold mb-8 text-primary leading-tight">
-                            Will you be my Valentine, <span className="text-accent underline decoration-wavy">Damilola?</span>
+                        <h2 className="text-4xl md:text-6xl font-serif font-black mb-10 text-foreground leading-tight">
+                            Will you be my Valentine, <br />
+                            <span className="text-primary italic">Damilola?</span>
                         </h2>
 
-                        <div className="flex flex-col md:flex-row gap-8 justify-center items-center mt-12 relative min-h-[250px] w-full">
+                        <div className="flex flex-col md:flex-row gap-10 justify-center items-center mt-12 relative min-h-[200px] w-full">
                             <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                                 onClick={handleYes}
                                 style={{
-                                    scale: 1 + (noClickCount * 0.15),
+                                    scale: Math.min(1.8, 1 + (noClickCount * 0.15)), // Cap scale to 1.8 for mobile reach
                                     zIndex: 20
                                 }}
-                                className="bg-primary text-white px-12 py-5 rounded-full text-2xl font-black shadow-[0_10px_30px_rgba(255,0,0,0.3)] hover:bg-accent transition-colors duration-300"
+                                className="bg-primary text-white px-14 py-6 rounded-full text-2xl font-black shadow-[0_15px_40px_rgba(255,45,85,0.4)] hover:brightness-110 transition-all duration-300 ring-2 ring-white/20"
                             >
                                 YES! ❤️
                             </motion.button>
@@ -88,14 +87,14 @@ export default function Proposal() {
                                 animate={{
                                     x: noButtonPos.x,
                                     y: noButtonPos.y,
-                                    scale: Math.max(0.5, 1 - (noClickCount * 0.05))
+                                    scale: Math.max(0.4, 1 - (noClickCount * 0.08))
                                 }}
                                 onMouseEnter={moveNoButton}
                                 onTouchStart={(e) => {
                                     e.preventDefault();
                                     moveNoButton();
                                 }}
-                                className="bg-gray-100 text-gray-500 px-10 py-4 rounded-full text-xl font-bold shadow-sm md:static absolute pointer-events-auto border border-gray-200"
+                                className="bg-white/5 text-foreground/40 px-8 py-3 rounded-full text-lg font-bold border border-white/10 absolute md:static pointer-events-auto backdrop-blur-sm"
                             >
                                 {noTexts[Math.min(noClickCount, noTexts.length - 1)]}
                             </motion.button>
@@ -104,46 +103,45 @@ export default function Proposal() {
                 ) : (
                     <motion.div
                         key="accepted"
-                        initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        className="glass-card p-12 rounded-[3rem] w-full bg-white/80 backdrop-blur-2xl border-4 border-primary/20 shadow-2xl"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="glass-card p-12 md:p-20 w-full border-4 border-primary shadow-[0_0_100px_rgba(255,45,85,0.3)]"
                     >
                         <motion.div
                             animate={{
-                                scale: [1, 1.3, 1],
-                                rotate: [0, 10, -10, 0]
+                                scale: [1, 1.4, 1],
+                                rotate: [0, 15, -15, 0]
                             }}
-                            transition={{ repeat: Infinity, duration: 2 }}
-                            className="text-8xl mb-8"
+                            transition={{ repeat: Infinity, duration: 1.5 }}
+                            className="text-9xl mb-10"
                         >
-                            💖
+                            ❤️‍🔥
                         </motion.div>
-                        <h2 className="text-4xl md:text-5xl font-black mb-6 text-primary">
-                            YAY! I KNEW IT!
+                        <h2 className="text-5xl md:text-7xl font-serif font-black mb-8 text-primary">
+                            YESSS!
                         </h2>
-                        <p className="text-2xl md:text-3xl text-foreground font-semibold">
-                            Damilola, you just made me the happiest man alive! ❤️
+                        <p className="text-2xl md:text-4xl text-foreground font-bold leading-tight">
+                            Damilola, you just made me the luckiest man alive.
                         </p>
-                        <p className="mt-4 text-xl text-primary/80 italic">
-                            Get ready for the most romantic (and naughty) night of your life... 🫦
+                        <p className="mt-8 text-xl md:text-2xl text-accent font-serif italic">
+                            Everything is ready for you... 🫦
                         </p>
-                        <div className="mt-12 flex justify-center gap-4">
-                            {[...Array(7)].map((_, i) => (
+                        <div className="mt-14 flex justify-center gap-6">
+                            {[...Array(5)].map((_, i) => (
                                 <motion.span
                                     key={i}
                                     animate={{
-                                        y: [0, -30, 0],
-                                        scale: [1, 1.2, 1],
-                                        opacity: [0.7, 1, 0.7]
+                                        y: [0, -40, 0],
+                                        opacity: [0.5, 1, 0.5]
                                     }}
                                     transition={{
                                         repeat: Infinity,
-                                        duration: 1.5,
-                                        delay: i * 0.2
+                                        duration: 1 + (i * 0.2),
+                                        delay: i * 0.1
                                     }}
-                                    className="text-4xl"
+                                    className="text-5xl"
                                 >
-                                    ❤️
+                                    🌹
                                 </motion.span>
                             ))}
                         </div>

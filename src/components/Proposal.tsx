@@ -92,7 +92,7 @@ export default function Proposal() {
                                     scale: Math.max(0.4, 1 - (noClickCount * 0.05)),
                                     opacity: 1
                                 }}
-                                whileHover={() => moveNoButton()}
+                                onHoverStart={() => moveNoButton()}
                                 onMouseEnter={moveNoButton}
                                 onTouchStart={(e) => {
                                     e.preventDefault();

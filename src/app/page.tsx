@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#fffafa]">
+    <main className="min-h-screen bg-background transition-colors duration-1000">
       {/* Hero Section */}
       <section className="relative h-screen flex flex-col items-center justify-center pt-20">
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">

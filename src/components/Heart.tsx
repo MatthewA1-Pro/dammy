@@ -54,58 +54,60 @@ export function Heart() {
 
   return (
     <group ref={meshRef}>
-      {/* Centered mesh */}
-      <mesh rotation={[Math.PI, 0, 0]} position={[0, 1.2, 0]}>
-        <extrudeGeometry args={[heartShape, extrudeSettings]} />
-        <meshStandardMaterial
-          color="#ff2d55"
-          metalness={1}
-          roughness={0.05}
-          emissive="#ff0040"
-          emissiveIntensity={1.2}
-        />
-      </mesh>
+      {/* Container for the heart and text so they move together */}
+      <group position={[0, 1.2, 0]}>
+        <mesh rotation={[Math.PI, 0, 0]}>
+          <extrudeGeometry args={[heartShape, extrudeSettings]} />
+          <meshStandardMaterial
+            color="#ff2d55"
+            metalness={1}
+            roughness={0.05}
+            emissive="#ff0040"
+            emissiveIntensity={1.2}
+          />
+        </mesh>
 
-      {/* Front Engraving */}
-      <Text
-        position={[0, 0.2, 0.38]}
-        fontSize={0.28}
-        color="#e2b13c"
-        anchorX="center"
-        anchorY="middle"
-        outlineWidth={0.02} // Thicker outline
-        outlineColor="#000000"
-        fontWeight="black"
-      >
-        DAMMY
-      </Text>
-
-      {/* Back Engravings - MAX VISIBILITY MODE */}
-      <group rotation={[0, Math.PI, 0]} position={[0, 0.2, -0.38]}>
+        {/* Front Engraving - Pos Y is local to heart group now */}
         <Text
-          position={[0, 0.15, 0]}
-          fontSize={0.26} // Even larger
-          color="#000000" // Pure Deep Black for "Dark and Visible"
+          position={[0, -1, 0.38]} // Adjusted for shape origin
+          fontSize={0.28}
+          color="#000000" // Pure Black
           anchorX="center"
           anchorY="middle"
+          outlineWidth={0.03}
+          outlineColor="#e2b13c" // Gold outline
           fontWeight="black"
-          outlineWidth={0.035} // Very thick outline
-          outlineColor="#e2b13c" // Gold outline to pop it off the red
         >
-          My Everything
+          DAMMY
         </Text>
-        <Text
-          position={[0, -0.15, 0]}
-          fontSize={0.18}
-          color="#000000" // Deep Black
-          anchorX="center"
-          anchorY="middle"
-          fontWeight="black"
-          outlineWidth={0.025}
-          outlineColor="#ffffff" // White outline for secondary text
-        >
-          My Forever Esther ❤️
-        </Text>
+
+        {/* Back Engravings - MAX VISIBILITY */}
+        <group rotation={[0, Math.PI, 0]} position={[0, -1, -0.38]}>
+          <Text
+            position={[0, 0.15, 0]}
+            fontSize={0.24}
+            color="#000000" // Deep Black
+            anchorX="center"
+            anchorY="middle"
+            fontWeight="black"
+            outlineWidth={0.03}
+            outlineColor="#e2b13c" // Gold
+          >
+            My Everything
+          </Text>
+          <Text
+            position={[0, -0.15, 0]}
+            fontSize={0.18}
+            color="#000000"
+            anchorX="center"
+            anchorY="middle"
+            fontWeight="black"
+            outlineWidth={0.02}
+            outlineColor="#ffffff"
+          >
+            Forever Esther ❤️
+          </Text>
+        </group>
       </group>
     </group>
   );

@@ -34,16 +34,17 @@ export function Heart() {
   useFrame((state) => {
     if (meshRef.current) {
       const time = state.clock.elapsedTime;
+      const isMobile = state.size.width < 768;
 
-      // Heartbeat pulse - slower, more rhythmic
+      // Responsive Heartbeat pulse
       const pulse = 1 + Math.sin(time * 2.5) * 0.08;
-      meshRef.current.scale.lerp(new THREE.Vector3(1.2 * pulse, 1.2 * pulse, 1.2 * pulse), 0.1);
+      const baseScale = isMobile ? 0.8 : 1.2; // Reduced size for mobile
+      meshRef.current.scale.lerp(new THREE.Vector3(baseScale * pulse, baseScale * pulse, baseScale * pulse), 0.1);
 
       // Interaction & Gentler Rotation
       const x = state.pointer.x * 0.4;
       const y = -state.pointer.y * 0.2;
 
-      // Reduced rotation speed to 0.2 (was 0.8)
       meshRef.current.rotation.y = THREE.MathUtils.lerp(meshRef.current.rotation.y, x + time * 0.25, 0.05);
       meshRef.current.rotation.x = THREE.MathUtils.lerp(meshRef.current.rotation.x, y, 0.05);
 
@@ -67,41 +68,41 @@ export function Heart() {
 
       {/* Front Engraving */}
       <Text
-        position={[0, 0.2, 0.38]} // Deeply placed on the surface
+        position={[0, 0.2, 0.38]}
         fontSize={0.28}
-        color="#e2b13c" // Champagne Gold
+        color="#e2b13c"
         anchorX="center"
         anchorY="middle"
-        outlineWidth={0.015}
-        outlineColor="#4a0404"
-        fontWeight="bold"
+        outlineWidth={0.02} // Thicker outline
+        outlineColor="#000000"
+        fontWeight="black"
       >
         DAMMY
       </Text>
 
-      {/* Back Engravings - Now with better visibility */}
+      {/* Back Engravings - FIXED FOR MOBILE VISIBILITY */}
       <group rotation={[0, Math.PI, 0]} position={[0, 0.2, -0.38]}>
         <Text
           position={[0, 0.15, 0]}
-          fontSize={0.2} // Larger text
-          color="#e2b13c"
+          fontSize={0.25} // Larger
+          color="#ffffff" // Bright White-Gold for visibility
           anchorX="center"
           anchorY="middle"
-          fontWeight="bold"
-          outlineWidth={0.01}
-          outlineColor="#4a0404"
+          fontWeight="black" // Pure black font weight
+          outlineWidth={0.03} // Very bold outline
+          outlineColor="#ff2d55" // Glow color
         >
           My Everything
         </Text>
         <Text
-          position={[0, -0.15, 0]} // Better spacing
-          fontSize={0.16}
-          color="#ffb3c1"
+          position={[0, -0.15, 0]}
+          fontSize={0.18}
+          color="#ffd1dc"
           anchorX="center"
           anchorY="middle"
-          fontWeight="bold"
-          outlineWidth={0.008}
-          outlineColor="#4a0404"
+          fontWeight="black"
+          outlineWidth={0.02}
+          outlineColor="#000000"
         >
           My Forever Esther ❤️
         </Text>

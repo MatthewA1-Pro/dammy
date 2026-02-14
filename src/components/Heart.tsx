@@ -80,29 +80,29 @@ export function Heart() {
         DAMMY
       </Text>
 
-      {/* Back Engravings - FIXED FOR MOBILE VISIBILITY */}
+      {/* Back Engravings - MAX VISIBILITY MODE */}
       <group rotation={[0, Math.PI, 0]} position={[0, 0.2, -0.38]}>
         <Text
           position={[0, 0.15, 0]}
-          fontSize={0.25} // Larger
-          color="#ffffff" // Bright White-Gold for visibility
+          fontSize={0.26} // Even larger
+          color="#000000" // Pure Deep Black for "Dark and Visible"
           anchorX="center"
           anchorY="middle"
-          fontWeight="black" // Pure black font weight
-          outlineWidth={0.03} // Very bold outline
-          outlineColor="#ff2d55" // Glow color
+          fontWeight="black"
+          outlineWidth={0.035} // Very thick outline
+          outlineColor="#e2b13c" // Gold outline to pop it off the red
         >
           My Everything
         </Text>
         <Text
           position={[0, -0.15, 0]}
           fontSize={0.18}
-          color="#ffd1dc"
+          color="#000000" // Deep Black
           anchorX="center"
           anchorY="middle"
           fontWeight="black"
-          outlineWidth={0.02}
-          outlineColor="#000000"
+          outlineWidth={0.025}
+          outlineColor="#ffffff" // White outline for secondary text
         >
           My Forever Esther ❤️
         </Text>

@@ -1,22 +1,23 @@
 'use client';
 
 import { Canvas } from '@react-three/fiber';
-import { Environment, OrbitControls, Float } from '@react-three/drei';
+import { Environment, OrbitControls, Float, Center } from '@react-three/drei';
 import { Heart } from './Heart';
 import { Suspense } from 'react';
 
 export default function Scene() {
     return (
-        <div className="w-full h-[50vh] md:h-[60vh] relative">
-            <Canvas shadows camera={{ position: [0, 0, 5], fov: 45 }}>
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} intensity={1} />
-                <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
+        <div className="w-full h-[60vh] md:h-[75vh] relative flex items-center justify-center">
+            <Canvas shadows camera={{ position: [0, 0, 5], fov: 40 }}>
+                <ambientLight intensity={1.5} />
+                <pointLight position={[10, 10, 10]} intensity={2} />
+                <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} intensity={2} />
+                <directionalLight position={[0, 5, 5]} intensity={1.5} />
 
                 <Suspense fallback={null}>
-                    <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+                    <Center>
                         <Heart />
-                    </Float>
+                    </Center>
                     <Environment preset="sunset" />
                 </Suspense>
 

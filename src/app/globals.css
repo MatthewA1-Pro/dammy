@@ -1,16 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #fffafa;
-  /* Snow white */
-  --foreground: #4a0404;
-  /* Deep maroon/red */
-  --primary: #e63946;
-  /* Romantic red */
-  --secondary: #ffb6c1;
-  /* Light pink */
-  --accent: #ff4d6d;
-  /* Bright pinkish red */
+  --background: #0a0101;
+  /* Deepest Midnight Maroon */
+  --foreground: #f8edeb;
+  /* Soft Champagne/Off-white */
+  --primary: #ff2d55;
+  /* Electric Neon Rose */
+  --primary-dark: #800f2f;
+  --secondary: #2d0a0a;
+  /* Deep Chocolate Maroon */
+  --accent: #ffb3c1;
+  /* Soft Blush */
+  --gold: #e2b13c;
+  /* Champagne Gold */
+  --glass: rgba(15, 5, 5, 0.7);
+  --glass-border: rgba(255, 45, 85, 0.2);
 }
 
 @theme inline {
@@ -19,13 +25,25 @@
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
-  --font-sans: 'Inter', sans-serif;
+  --color-gold: var(--gold);
+  --font-sans: 'Outfit', sans-serif;
+  --font-serif: 'Playfair Display', serif;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
+  font-family: var(--font-sans);
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255, 45, 85, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(255, 45, 85, 0.05) 0%, transparent 40%);
+}
+
+h1,
+h2,
+.font-serif {
+  font-family: var(--font-serif);
 }
 
 /* Custom animations */
@@ -35,7 +53,7 @@ body {
   }
 
   14% {
-    transform: scale(1.1);
+    transform: scale(1.15);
   }
 
   28% {
@@ -43,7 +61,7 @@ body {
   }
 
   42% {
-    transform: scale(1.1);
+    transform: scale(1.15);
   }
 
   70% {
@@ -52,41 +70,77 @@ body {
 }
 
 .animate-heartbeat {
-  animation: heartBeat 1.2s infinite;
+  animation: heartBeat 2s ease-in-out infinite;
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 182, 193, 0.3);
-  box-shadow: 0 8px 32px 0 rgba(230, 57, 70, 0.1);
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border-radius: 3rem;
 }
 
-.floating,
-.animate-float {
-  animation: float 5s ease-in-out infinite;
+.floating {
+  animation: float-simple 8s ease-in-out infinite;
 }
 
-@keyframes float {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-    opacity: 0;
-  }
+@keyframes float-simple {
 
-  25% {
-    opacity: 1;
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
   }
 
   50% {
-    transform: translateY(-30px) rotate(10deg);
+    transform: translateY(-30px) rotate(2deg);
+  }
+}
+
+.animate-float {
+  animation: float-rise 10s linear infinite;
+}
+
+@keyframes float-rise {
+  0% {
+    transform: translateY(0vh) rotate(0deg) scale(0.5);
+    opacity: 0;
   }
 
-  75% {
-    opacity: 1;
+  15% {
+    opacity: 0.4;
+  }
+
+  50% {
+    transform: translateY(-50vh) rotate(180deg) scale(1);
+  }
+
+  85% {
+    opacity: 0.4;
   }
 
   100% {
-    transform: translateY(-100px) rotate(-10deg);
+    transform: translateY(-100vh) rotate(360deg) scale(0.5);
     opacity: 0;
   }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+::selection {
+  background: var(--primary);
+  color: white;
 }
